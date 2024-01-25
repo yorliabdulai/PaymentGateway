@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/yorliabdulai/PaymentGateway/issues"
   },
-  "homepage": "https://github.com/yorliabdulai/PaymentGateway#readme"
+  "homepage": "https://github.com/yorliabdulai/PaymentGateway#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
