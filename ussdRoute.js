@@ -90,6 +90,21 @@ router.get("/ussd", async(req, res)=>{
             continueSession = false;
             delete userSessionData[sessionID];
         }
+    }else if (newSession == false && userData === "2" && userSessionData[sessionID].step === "4"){
+        if(userSessionData[sessionID] == "1"){
+            message = "Please enter member's number for dues payment:"
+            userSessionData[sessionID].step = 2
+        }
+        if(userSessionData[sessionID] == "2"){
+            message = "Please enter member's number for event payment:"
+            userSessionData[sessionID].step = 2
+        }
+    }else if(newSession && userData == ussdCode && !whitelist.includes(msisdn)){
+        message = "You are not authorized to use this service"
+        continueSession = false;
+    }else{
+        message = "Invalid input"
+        continueSession = false;
     }
 
     let response = {
