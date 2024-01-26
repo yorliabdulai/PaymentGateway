@@ -10,6 +10,19 @@ router.get("/ussd", async(req, res)=>{
     let service= ""
     let continueSession ="";
 
+    if(newSession && userData === ussdCode){
+        userSessionData[sessionID]={
+            step: 1,
+            amount: undefined,
+            service: undefined,
+            phoneNumber: undefined,
+            reference: undefined
+        }
+        message = "Welcome to the YorTech USSD payment platform.\n";
+        message += "1. Pay your GMSA dues\n";
+        message += "2. Pay for an event\n";
+        continueSession = true;
+    }
 
     let response = {
         sessionID: service,
