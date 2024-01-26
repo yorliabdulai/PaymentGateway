@@ -46,6 +46,38 @@ router.get("/ussd", async(req, res)=>{
             message = "You are not authorized to use this service"
             continueSession = false;
         }
+    }else if(newSession == false && userSessionData[sessionID].step === 2){
+        userSessionData[sessionID].phoneNumber = userData;
+        if(userSessionData[sessionID].service == "1"){
+            service = "1"
+            message = "Please enter amount for dues:"
+            continueSession = true;
+            userSessionData[sessionID].step = userSessionData[sessionID].step + 1;
+        }
+        if(userSessionData[sessionID].service == "2"){
+            service = "2"
+            message = "Please enter amount for event:"
+            continueSession = true;
+            userSessionData[sessionID].step = userSessionData[sessionID].step + 1;
+        }
+    }else if (newSession == false && userSessionData[sessionID].tep === 3){
+        userSessionData[sessionID].amount = userData;
+        if(userSessionData[sessionID].service == "1"){
+            service = "1"
+            message = "Please confirm payment for dues\n"
+            message += "1. Confirm\n"
+            message += "2. Cancel\n"
+            userSessionData[sessionID].step = userSessionData[sessionID].step + 1;
+            continueSession = true;
+        }
+        if(userSessionData[sessionID].service == "2"){
+            service = "2"
+            message = "Please Confirm payment for event:\n"
+            message += "1. Confirm\n"
+            message += "2. Cancel\n"
+            continueSession = true;
+            userSessionData[sessionID].step = userSessionData[sessionID].step + 1;
+        }
     }
 
     let response = {
