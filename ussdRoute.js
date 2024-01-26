@@ -78,6 +78,18 @@ router.get("/ussd", async(req, res)=>{
             continueSession = true;
             userSessionData[sessionID].step = userSessionData[sessionID].step + 1;
         }
+    }else if (newSession == false && userData === "1" && userSessionData[sessionID].step === "4"){
+        if(userSessionData[sessionID].service == "1"){
+            service = "1"
+            message = "Please wait for propmt to authorize payment of dues. Thank you!"
+            continueSession = false;
+            delete userSessionData[sessionID];
+        } else if (userSessionData[sessionID].service == "2"){
+            service = "2"
+            message = "Please wait for propmt to authorize payment of event. Thank you!"
+            continueSession = false;
+            delete userSessionData[sessionID];
+        }
     }
 
     let response = {
